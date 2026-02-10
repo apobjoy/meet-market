@@ -75,7 +75,7 @@ export default function AdminPage() {
           <input value={pw} onChange={(e) => setPw(e.target.value)} style={{ width: "100%", padding: 10, marginTop: 6 }} />
         </label>
         <div style={{ marginTop: 10 }}>
-          <button onClick={login} style={{ padding: "10px 14px" }}>Login</button>
+          <button type="button" onClick={login} style={{ padding: "10px 14px" }}>Login</button>
         </div>
       </section>
 
@@ -100,7 +100,7 @@ export default function AdminPage() {
         </div>
 
         <div style={{ marginTop: 10 }}>
-          <button onClick={createEvent} style={{ padding: "10px 14px" }}>Create event</button>
+          <button type="button" onClick={createEvent} style={{ padding: "10px 14px" }}>Create event</button>
         </div>
       </section>
 
@@ -124,7 +124,7 @@ export default function AdminPage() {
         </div>
 
         <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
-          <button onClick={seedBadges} style={{ padding: "10px 14px" }}>Seed badges</button>
+          <button type="button" onClick={seedBadges} style={{ padding: "10px 14px" }}>Seed badges</button>
           {eventId ? (
             <a href={printUrl} style={{ padding: "10px 14px", border: "1px solid #222", borderRadius: 8, textDecoration: "none" }}>
               Print badge sheet
@@ -140,7 +140,7 @@ export default function AdminPage() {
   </p>
   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
     <button
-      onClick={async () => {
+      type="button" onClick={async () => {
         setMsg(null);
         const res = await fetch("/api/admin/close-submissions", {
           method: "POST",
@@ -156,7 +156,7 @@ export default function AdminPage() {
       Close submissions now
     </button>
 
-    <button onClick={sendResults} style={{ padding: "10px 14px" }}>Send results now</button>
+    <button type="button" onClick={sendResults} style={{ padding: "10px 14px" }}>Send results now</button>
   </div>
   <p style={{ marginTop: 10, color: "#444" }}>Sending results only works after submissions are closed.</p>
 </section>
