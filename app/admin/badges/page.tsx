@@ -39,35 +39,54 @@ const baseUrl =
 
   return (
     <main style={{ padding: 24 }}>
-      <style>{`
-        @media print {
-          .no-print { display: none; }
-          .page { page-break-after: always; }
-          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        }
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
-.badge {
-  position: relative;
-  border: 2px solid #111;
-  border-radius: 14px;
-  padding: 18px;
-  height: 190px;
-  box-sizing: border-box;
-}
-        .num {
-  font-size: 96px;       /* BIG and readable from distance */
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -1px;
-}
-        .nameblank { margin-top: 6px; border-bottom: 2px dashed #444; height: 28px; }
-        .legend { display: flex; gap: 8px; margin-top: 10px; font-size: 12px; }
-        .dot { width: 14px; height: 14px; border-radius: 999px; display: inline-block; }
-      `}</style>
+    <style>{`
+  @media print {
+    .no-print { display: none; }
+    .page { page-break-after: always; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* More space between badges for guillotining */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;              /* was 14px */
+  }
+
+  .badge {
+    border: 2px solid #111;
+    border-radius: 14px;
+    padding: 18px;
+    height: 180px;
+    position: relative;     /* allow QR to sit top-right */
+    overflow: hidden;       /* keep everything inside the border */
+    box-sizing: border-box;
+  }
+
+  /* Make the number BIG and visible from a distance */
+  .num {
+    font-size: 92px;        /* was 56px */
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    margin-top: 6px;
+  }
+
+  .nameblank {
+    margin-top: 8px;
+    border-bottom: 2px dashed #444;
+    height: 30px;
+  }
+
+  /* Small QR, top-right corner */
+  .qr {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 64px;            /* much smaller */
+    height: 64px;
+  }
+`}</style>
 
       <div className="no-print" style={{ maxWidth: 860, marginBottom: 16 }}>
         <h1 style={{ marginTop: 0 }}>Printable Badge Sheet</h1>
@@ -79,19 +98,20 @@ const baseUrl =
         <section key={i} className="page" style={{ marginBottom: 18 }}>
           <div className="grid">
             {page.map((b) => (
-              <div key={b.join_code} className="badge">
-                <div>
-                  <div style={{ fontSize: 12, color: "#444" }}>Piano Bar Geelong</div>
-                  <div className="num">{b.badge_number}</div>
-                  <div style={{ fontSize: 13, fontWeight: 600 }}>First name</div>
-                  <div className="nameblank" />
-                  <div className="legend">
-                    <span><span className="dot" style={{ background: "#2ecc71" }} /> Green</span>
-                    <span><span className="dot" style={{ background: "#f1c40f" }} /> Yellow</span>
-                    <span><span className="dot" style={{ background: "#e74c3c" }} /> Red</span>
-                  </div>
-                  <div style={{ fontSize: 10, color: "#666", marginTop: 6 }}>Scan QR to register.</div>
-                </div>
+             <div key={b.join_code} className="badge">
+  <div style={{ fontSize: 12, color: "#444" }}>Piano Bar Geelong</div>
+
+  <img
+    className="qr"
+    src={b.qr}
+    alt={`QR ${b.badge_number}`}
+  />
+
+  <div className="num">{b.badge_number}</div>
+
+  <div style={{ fontSize: 13, fontWeight: 600, marginTop: 8 }}>First name</div>
+  <div className="nameblank" />
+</div>
 <img
   src={b.qr}
   alt={`QR ${b.badge_number}`}
