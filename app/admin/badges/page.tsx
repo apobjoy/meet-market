@@ -30,7 +30,7 @@ const baseUrl =
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://meet-market-zolj.vercel.app");  const badges = await Promise.all(
     badgesRes.data.map(async (b) => {
       const url = `${baseUrl}/join/${encodeURIComponent(b.join_code)}`;
-      const qr = await QRCode.toDataURL(url, { margin: 0, scale: 6 });
+      const qr = await QRCode.toDataURL(url, { margin: 0, scale: 3 });
       return { ...b, qr };
     })
   );
@@ -52,11 +52,16 @@ const baseUrl =
           padding: 14px;
           height: 180px;
           display: grid;
-          grid-template-columns: 1fr 140px;
+          grid-template-columns: 1fr 90px;
           gap: 12px;
           align-items: center;
         }
-        .num { font-size: 56px; font-weight: 800; line-height: 1; }
+        .num {
+  font-size: 96px;       /* BIG and readable from distance */
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+}
         .nameblank { margin-top: 6px; border-bottom: 2px dashed #444; height: 28px; }
         .legend { display: flex; gap: 8px; margin-top: 10px; font-size: 12px; }
         .dot { width: 14px; height: 14px; border-radius: 999px; display: inline-block; }
@@ -86,7 +91,7 @@ const baseUrl =
                   <div style={{ fontSize: 10, color: "#666", marginTop: 6 }}>Scan QR to register.</div>
                 </div>
                 <div style={{ justifySelf: "end", textAlign: "right" }}>
-                  <img src={b.qr} alt={`QR ${b.badge_number}`} style={{ width: 130, height: 130 }} />
+                  <img src={b.qr} alt={`QR ${b.badge_number}`} style={{ width: 60, height: 60 }} />
                 </div>
               </div>
             ))}
