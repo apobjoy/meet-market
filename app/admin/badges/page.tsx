@@ -45,17 +45,19 @@ const baseUrl =
           .page { page-break-after: always; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .badge {
-          border: 2px solid #111;
-          border-radius: 14px;
-          padding: 14px;
-          height: 180px;
-          display: grid;
-          grid-template-columns: 1fr 90px;
-          gap: 12px;
-          align-items: center;
-        }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.badge {
+  position: relative;
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 18px;
+  height: 190px;
+  box-sizing: border-box;
+}
         .num {
   font-size: 96px;       /* BIG and readable from distance */
   font-weight: 900;
@@ -90,9 +92,17 @@ const baseUrl =
                   </div>
                   <div style={{ fontSize: 10, color: "#666", marginTop: 6 }}>Scan QR to register.</div>
                 </div>
-                <div style={{ justifySelf: "end", textAlign: "right" }}>
-                  <img src={b.qr} alt={`QR ${b.badge_number}`} style={{ width: 60, height: 60 }} />
-                </div>
+<img
+  src={b.qr}
+  alt={`QR ${b.badge_number}`}
+  style={{
+    position: "absolute",
+    top: 12,
+    right: 12,
+    width: 70,
+    height: 70,
+  }}
+/>
               </div>
             ))}
           </div>
