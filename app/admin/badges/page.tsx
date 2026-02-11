@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import QRCode from "qrcode";
+import PrintButton from "./print-button";
 
 export const dynamic = "force-dynamic";
 
@@ -63,9 +64,7 @@ export default async function BadgeSheetPage({ searchParams }: { searchParams: {
       <div className="no-print" style={{ maxWidth: 860, marginBottom: 16 }}>
         <h1 style={{ marginTop: 0 }}>Printable Badge Sheet</h1>
         <p style={{ marginTop: 0 }}>Event: <strong>{eventRes.data.title}</strong></p>
-        <button onClick={() => window.print()} style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #222", background: "#111", color: "#fff" }}>
-          Print
-        </button>
+        <PrintButton />
       </div>
 
       {pages.map((page, i) => (
