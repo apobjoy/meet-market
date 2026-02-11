@@ -25,10 +25,11 @@ export default async function BadgeSheetPage({ searchParams }: { searchParams: {
 
   if (badgesRes.error) return <main style={{ padding: 24 }}><h1>Badge Sheet</h1><p>Could not load badges.</p></main>;
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
-  const badges = await Promise.all(
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://meet-market-zolj.vercel.app");  const badges = await Promise.all(
     badgesRes.data.map(async (b) => {
-      const url = `${baseUrl}/join/${b.join_code}`;
+      const url = `${baseUrl}/join/${encodeURIComponent(b.join_code)}`;
       const qr = await QRCode.toDataURL(url, { margin: 0, scale: 6 });
       return { ...b, qr };
     })
